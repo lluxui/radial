@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>#</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width" />
+
+<style>
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #9b59b6;
+    background: radial-gradient( at center, #3498db, #9b59b6 );
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+	var getWindowSize = (function() {
+		var de = document.documentElement,
+		root = de && de.clientHeight === 0;
+
+		function isDocumentElementHeightOff () { 
+			var d = document,
+			div = d.createElement('div');
+			div.style.height = "2500px";
+			d.body.insertBefore(div, d.body.firstChild);
+			var r = d.documentElement.clientHeight > 2400;
+			d.body.removeChild(div);
+			return r;
+		}
+
+		if (typeof document.clientWidth == "number") {
+			return function () {
+				return { width: document.clientWidth, height: document.clientHeight };
+			};
+		} else if (root || isDocumentElementHeightOff()) {
+			var b = document.body;
+			return function () {
+				return { width: b.clientWidth, height: b.clientHeight };
+			};
+		} else {
+			return function () {
+				return { width: de.clientWidth, height: de.clientHeight };
+			};
+		}
+
+	})();
+
+	window.onload = function() {
+		this.addEventListener('mousemove', function(e) {
+		
+			var x = Math.round( e.clientX / getWindowSize().width * 100);
+			var y = Math.round( e.clientY / getWindowSize().height * 100);
+
+			document.getElementsByTagName('body')[0].style.background = 'radial-gradient(at ' + x + '% ' + y + '%, #3498db, #9b59b6)';
+
+		});
+	};
+
+</script>
+</body>
+</html>
